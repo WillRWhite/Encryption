@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
 	int seed = 15; // encodein seed valid range 1 to 127
 	int mode = 1; // 1 = encode, 0 = decode
 
+
+
 	FILE *inFile;
 	FILE *outFile;
 
