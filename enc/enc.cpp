@@ -1,6 +1,7 @@
 // enc.cpp : Defines the entry point for the console application.
 //
 #include "stdafx.h"
+#include <stdlib.h>
 
 #pragma warning(disable : 4996)
 
@@ -11,30 +12,27 @@ int main(int argc, char *argv[])
 
 {
 	char character = NULL; // character
-	int seed = 15; // encodein seed valid range 1 to 127
-	int mode = 1; // 1 = encode, 0 = decode
-
-
+	int seed = NULL; // encodein seed valid range 1 to 127
+	int mode = NULL; // 1 = encode, 0 = decode
 
 	FILE *inFile;
 	FILE *outFile;
 
-	if (argc == 4) {
-		switch (argv[1][0])
-		{
+	if (argc == 5) {
+		switch (argv[1][0]) {
 			case 'e' : { mode = 1; break; }
 			case 'd' : { mode = 0; break; }
-			default: 
-			{
+			default: {
 				printf("Bad arguments.\n");
 				printf("Usage: enc <e,d> <inFile> <outFile>\n");
 				return 1; 
 			}
 		}
-		inFile = fopen(argv[2], "r");
-		outFile = fopen(argv[3], "w");
+		seed = atoi(argv[2]);
+		inFile = fopen(argv[3], "r");
+		outFile = fopen(argv[4], "w");
 	}
-	else if (argc > 4) {
+	else if (argc > 5) {
 		printf("Too many arguments supplied.\n");
 		return 1;
 	}
@@ -44,10 +42,8 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	if (mode == 1)
-	{
-		while (true)
-		{
+	if (mode == 1) {
+		while (true) {
 			character = fgetc(inFile);
 			if (character == EOF) { break; }
 
@@ -58,8 +54,7 @@ int main(int argc, char *argv[])
 				character = character + seed;
 			}
 
-			if (character > 126)
-			{
+			if (character > 126) {
 				character = character - 126;
 			}
 
@@ -70,10 +65,8 @@ int main(int argc, char *argv[])
 		}
 
 	}
-	else
-	{
-		while (true)
-		{
+	else {
+		while (true) {
 			character = fgetc(inFile);
 			if (character == EOF) { break; }
 
